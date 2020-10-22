@@ -25,7 +25,7 @@ type TweetsAnalytics {
   # company: Company
 
   # wordOccurrences(word: String, data: Date): [WordOccurrences!]
-  contriesOccurrences: [CountryOccurrences!] @listLength(min: 2, max: 2)
+  countriesOccurrences: [CountryOccurrences!] @listLength(min: 2, max: 2)
   # childrenOccurrences: [ChildrenOccurrences!]
 }
 

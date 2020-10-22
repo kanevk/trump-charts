@@ -4,11 +4,11 @@ import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { DocumentNode, gql, useQuery } from "@apollo/client";
 
 const QUERY: DocumentNode = gql`
-  query contriesOccurrences {
+  query countriesOccurrences {
     tweetsAnalytics {
-      contriesOccurrences {
+      countriesOccurrences {
         name
-        occurrencesCount
+        count
       }
     }
   }
@@ -21,10 +21,7 @@ const ColumnChart = ({
   title: string;
   data: readonly object[];
 }) => {
-  const colors: string[] = [
-    '#ffe200',
-    '#ff7105'
-  ]
+  const colors: string[] = ["#ffe200", "#ff7105"];
 
   return (
     <div className="column">
@@ -32,7 +29,7 @@ const ColumnChart = ({
         <PieChart>
           <Pie
             data={data}
-            dataKey="value"
+            dataKey="count"
             nameKey="name"
             cx="50%"
             cy="50%"
@@ -57,15 +54,7 @@ const App = () => {
   if (loading) return <div></div>;
   if (error) throw error;
 
-  const chartData = data.tweetsAnalytics.contriesOccurrences.map(
-    ({
-      name,
-      occurrencesCount,
-    }: {
-      name: string;
-      occurrencesCount: string;
-    }) => ({ name, value: occurrencesCount }),
-  );
+  const chartData = data.tweetsAnalytics.countriesOccurrences
 
   return (
     <div className="App">
@@ -75,9 +64,12 @@ const App = () => {
           <h2>Thrumb's charts</h2>
         </header>
         <div className="columns">
-          <ColumnChart title="US vs Russia" data={chartData} />
+          <ColumnChart title="China vs Russia" data={chartData} />
           <ColumnChart title="Favourite child" data={chartData} />
-          <ColumnChart title="Occurrencies of 'democracy' till date" data={chartData} />
+          <ColumnChart
+            title="Occurrences of 'democracy' till date"
+            data={chartData}
+          />
         </div>
       </div>
     </div>

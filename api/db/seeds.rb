@@ -1,10 +1,5 @@
-require 'net/http'
-
-response = Net::HTTP.get_response(URI('http://trumptwitterarchive.com/data/realdonaldtrump/2018.json'))
-
-raise response.body if response.code != '200'
-
-tweets_data = JSON.parse(response.body)
+raw_data = File.read(Rails.root.join('db', 'trump_tweets.json'))
+tweets_data = JSON.parse(raw_data)
 
 time_now = DateTime.current
 batch_data =
