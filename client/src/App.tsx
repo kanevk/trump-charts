@@ -1,12 +1,17 @@
 import "./App.scss";
 import React from "react";
-import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 import { DocumentNode, gql, useQuery } from "@apollo/client";
 
 const QUERY: DocumentNode = gql`
-  query countriesOccurrences {
+  query getOccurrences {
     tweetsAnalytics {
       countriesOccurrences {
+        name
+        count
+      }
+
+      childrenOccurrences {
         name
         count
       }
@@ -21,8 +26,8 @@ const ColumnChart = ({
   title: string;
   data: readonly object[];
 }) => {
-  const colors: string[] = ["#ffe200", "#ff7105"];
-
+  const colors: string[] = ["#ffe200", "#ff7105", "brown", "blue", "gray", "red"];
+  debugger
   return (
     <div className="column">
       <ResponsiveContainer height={250}>
@@ -35,12 +40,13 @@ const ColumnChart = ({
             cy="50%"
             innerRadius={60}
             outerRadius={80}
-            label
+            label={(entry) => `${entry.name}: ${entry.count}`}
           >
             {data.map((_entry, index) => (
               <Cell key={`cell-${index}`} fill={colors[index]} />
             ))}
           </Pie>
+          <Tooltip />
         </PieChart>
       </ResponsiveContainer>
       <span className="title">{title}</span>
@@ -54,7 +60,8 @@ const App = () => {
   if (loading) return <div></div>;
   if (error) throw error;
 
-  const chartData = data.tweetsAnalytics.countriesOccurrences
+  const contriesOccurrencesData = data.tweetsAnalytics.countriesOccurrences
+  const childrenOccurrencesData = data.tweetsAnalytics.childrenOccurrences
 
   return (
     <div className="App">
@@ -64,12 +71,8 @@ const App = () => {
           <h2>Thrumb's charts</h2>
         </header>
         <div className="columns">
-          <ColumnChart title="China vs Russia" data={chartData} />
-          <ColumnChart title="Favourite child" data={chartData} />
-          <ColumnChart
-            title="Occurrences of 'democracy' till date"
-            data={chartData}
-          />
+          <ColumnChart title="China vs Russia" data={contriesOccurrencesData} />
+          <ColumnChart title="Favourite child" data={childrenOccurrencesData} />
         </div>
       </div>
     </div>

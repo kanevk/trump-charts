@@ -10,7 +10,12 @@ module Types
     class TweetsAnalytics < Types::BaseObject
       field :countries_occurrences, [Occurrency], null: false
       def countries_occurrences
-        Tweet.countries_occurrences.map { |occ| { name: occ.name, count: occ.number } }
+        Tweet.find_countries_occurrences.map { |occ| { name: occ.name, count: occ.number } }
+      end
+
+      field :children_occurrences, [Occurrency], null: false
+      def children_occurrences
+        Tweet.find_children_occurrences.map { |occ| { name: occ.name, count: occ.number } }
       end
     end
     # Add root-level fields here.

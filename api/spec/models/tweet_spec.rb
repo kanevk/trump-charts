@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Tweet do
-  describe '.countries_occurrences' do
+  describe '.find_countries_occurrences' do
     it 'counts multiple occurrences in a tweet' do
       create_tweets(
         'China, China is one of us',
         'Mother Russia > China'
       )
 
-      expect(Tweet.countries_occurrences).to contain_exactly(
+      expect(Tweet.find_countries_occurrences).to contain_exactly(
         an_object_having_attributes(name: 'China', number: 3),
         an_object_having_attributes(name: 'Russia', number: 1)
       )
@@ -20,7 +20,7 @@ RSpec.describe Tweet do
         "I'm russian spy"
       )
 
-      expect(Tweet.countries_occurrences).to contain_exactly(
+      expect(Tweet.find_countries_occurrences).to contain_exactly(
         an_object_having_attributes(name: 'Russia', number: 1),
         an_object_having_attributes(name: 'China', number: 0)
       )
@@ -32,9 +32,39 @@ RSpec.describe Tweet do
         'china uncensored'
       )
 
-      expect(Tweet.countries_occurrences).to contain_exactly(
+      expect(Tweet.find_countries_occurrences).to contain_exactly(
         an_object_having_attributes(name: 'China', number: 1),
         an_object_having_attributes(name: 'Russia', number: 0)
+      )
+    end
+  end
+
+  describe '.find_children_occurrences' do
+    it 'includes results for all children' do
+      expect(Tweet.find_children_occurrences).to contain_exactly(
+        an_object_having_attributes(name: 'Ivanka'),
+        an_object_having_attributes(name: 'Barron'),
+        an_object_having_attributes(name: 'Donald'),
+        an_object_having_attributes(name: 'Tiffany'),
+        an_object_having_attributes(name: 'Eric')
+      )
+    end
+
+    it 'counts multiple occurrences in a tweet' do
+      create_tweets('Ivanka and Don jr. are not mine')
+
+      expect(Tweet.find_children_occurrences).to include(
+        an_object_having_attributes(name: 'Ivanka', number: 1),
+        an_object_having_attributes(name: 'Donald', number: 1)
+      )
+    end
+
+    it 'counts multiple variations of Donald' do
+      create_tweets('Don jr.', 'Don JR.', 'Don Jr.',
+                    'Donald Trump jr.', 'Donald Trump JR.', 'Donald Trump Jr.')
+
+      expect(Tweet.find_children_occurrences).to include(
+        an_object_having_attributes(name: 'Donald', number: 6)
       )
     end
   end

@@ -1,4 +1,4 @@
-# Trumb tweets charts
+# Trump tweets charts
 An interview assigment
 
 ## The assigment
