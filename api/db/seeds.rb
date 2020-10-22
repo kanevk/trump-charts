@@ -1,7 +1,10 @@
-raw_data = File.read(Rails.root.join('db', 'trump_tweets.json'))
+Tweet.delete_all
+
+raw_data = File.read(Rails.root.join('storage', 'trump_tweets.json'))
 tweets_data = JSON.parse(raw_data)
 
 time_now = DateTime.current
+
 batch_data =
   tweets_data.map do |tweet_data|
     {

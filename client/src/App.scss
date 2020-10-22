@@ -3,7 +3,7 @@ $white: white;
 
 .App {
   background-color: $dark-gray;
-  height: 100vmax;
+  height: 100vh;
   color: $white;
 }
 
@@ -15,7 +15,7 @@ $white: white;
 .main header h2 { margin: 0; }
 .main header img { width: 128px; height: 128px; }
 
-.main .columns {
+.main .cells {
   width: 100%;
   height: 100%;
   display: flex;
@@ -25,10 +25,14 @@ $white: white;
   justify-content: flex-start;
 }
 
-.main .columns .column {
+.main .cells .cell {
   text-align: center;
   width: 50%;
   margin-bottom: 20px;
 }
 
-.main .columns .column .title { font-size: 25px; }
+.main .cells .title { font-size: 25px; }
+.main .cells .row {
+  width: 100%;
+  text-align: center;
+}
