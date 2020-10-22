@@ -1,5 +1,5 @@
 class Tweet < ApplicationRecord
-  Occurrency = Struct.new(:name, :count, keyword_init: true)
+  Occurrency = Struct.new(:name, :number, keyword_init: true)
 
   def self.countries_occurrences
     china_occurrences, russia_occurrences =
@@ -8,8 +8,8 @@ class Tweet < ApplicationRecord
            .first
 
     [
-      Occurrency.new(name: 'China', count: china_occurrences),
-      Occurrency.new(name: 'Russia', count: russia_occurrences)
+      Occurrency.new(name: 'China', number: china_occurrences),
+      Occurrency.new(name: 'Russia', number: russia_occurrences)
     ]
   end
 end

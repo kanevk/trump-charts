@@ -9,8 +9,8 @@ RSpec.describe Tweet do
       )
 
       expect(Tweet.countries_occurrences).to contain_exactly(
-        an_object_having_attributes(name: 'China', count: 3),
-        an_object_having_attributes(name: 'Russia', count: 1)
+        an_object_having_attributes(name: 'China', number: 3),
+        an_object_having_attributes(name: 'Russia', number: 1)
       )
     end
 
@@ -21,8 +21,8 @@ RSpec.describe Tweet do
       )
 
       expect(Tweet.countries_occurrences).to contain_exactly(
-        an_object_having_attributes(name: 'Russia', count: 1),
-        an_object_having_attributes(name: 'China', count: 0)
+        an_object_having_attributes(name: 'Russia', number: 1),
+        an_object_having_attributes(name: 'China', number: 0)
       )
     end
 
@@ -33,8 +33,8 @@ RSpec.describe Tweet do
       )
 
       expect(Tweet.countries_occurrences).to contain_exactly(
-        an_object_having_attributes(name: 'China', count: 1),
-        an_object_having_attributes(name: 'Russia', count: 0)
+        an_object_having_attributes(name: 'China', number: 1),
+        an_object_having_attributes(name: 'Russia', number: 0)
       )
     end
   end
