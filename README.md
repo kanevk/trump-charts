@@ -31,6 +31,11 @@ The API serves aggregations over tweets of Donald Trump. The following assumtion
  - the mentions his childre are calculated in total for the whole period
  - all words are queried insensitive due to simplicity and explicty. There is a mechanics of finding different versions of a word.
 
+Future optimizations:
+ - we can make a single query for `Tweet.find_democracy_occurrences_by_year`
+ - we can use PostgreSQL `tsvector` structure to store the tweets, since this will optmize the search
+ - we can have parallel resolvers
+
 ## Setup
 
 Pre-requiremets: ruby, bundler, docker-compose, node, yarn
