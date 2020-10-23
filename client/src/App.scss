@@ -1,8 +1,6 @@
-$dark-gray: #282c34;
 $white: white;
 
 .App {
-  background-color: $dark-gray;
   height: 100vh;
   color: $white;
 }
@@ -35,4 +33,5 @@ $white: white;
 .main .cells .row {
   width: 100%;
   text-align: center;
+  margin-bottom: 20px;
 }
